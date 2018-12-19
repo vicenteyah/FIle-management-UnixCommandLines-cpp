@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string>
 #include <fstream>
+#include <unistd.h>
 using namespace std;
 class file{
    public:
@@ -24,18 +25,18 @@ class file{
 int file::menu(){
     int input = 0;
     cout<<" Choose an option:"<<endl;
-    cout << "1. Create two DirA and DirB directories and copy five files of different size (mkdir, cp, cat)" << endl;
-    cout << "2. look for largest file in (DirB) and the smallest in(DirA)(find, cat) " << endl;
-    cout << "3. concatenate two files( cp, cat) " << endl;
-    cout << "4. Change owner attribute to DirA files. (chown)" << endl;
-    cout << "5. Change write, read and execute permissions of DirB files (chmod)" << endl;
-    cout << "6. Change Group permissions to the DirB files. (chgrp)" << endl;
-    cout << "7. Search within a text file using the grep command to locate how many times Letter B or b is repeated ( find, cat, grep ) " << endl;
-    cout << "8. Create a link from a file in the DirA to a file in the DirB (ln)" << endl;
-    cout << "9. Compare the files in the DirB directories and Say the most current and the oldest" << endl;
-    cout << "10. Encrypt the contents of a text file and then decrypt it. (gpg)" << endl;
-    cout << "11.  Leave:" << endl;
-    cout<<"\n Choose an Option (1-10, 11 = exit)"<<endl;
+    cout << "[1]. Create two DirA and DirB directories and copy five files of different size (mkdir, cp, cat)" << endl;
+    cout << "[2]. look for largest file in (DirB) and the smallest in(DirA)(find, cat) " << endl;
+    cout << "[3]. concatenate two files( cp, cat) " << endl;
+    cout << "[4]. Change owner attribute to DirA files. (chown)" << endl;
+    cout << "[5]. Change write, read and execute permissions of DirB files (chmod)" << endl;
+    cout << "[6]. Change Group permissions to the DirB files. (chgrp)" << endl;
+    cout << "[7]. Search within a text file using the grep command to locate how many times Letter B or b is repeated ( find, cat, grep ) " << endl;
+    cout << "[8]. Create a link from a file in the DirA to a file in the DirB (ln)" << endl;
+    cout << "[9]. Compare the files in the DirB directories and Say the most current and the oldest" << endl;
+    cout << "[10]. Encrypt the contents of a text file and then decrypt it. (gpg)" << endl;
+    cout << "[11].  Leave:" << endl;
+    cout<<"\n Choose an Option (1-10, 11 = exit): ";
     cin>>input;
     return input;
 }
@@ -63,12 +64,13 @@ void file::option1(){
     createFile("DirA/A3.txt", 5, "hello --");
     createFile("DirA/A4.txt", 5, "hello --.");
     createFile("DirA/A5.txt", 5, "hello --*");
-
-    createFile("DirA/B1.txt", 5, "hello Teacher XD");
-    createFile("DirA/B2.txt", 5, "hello Teacher XD");
-    createFile("DirA/B3.txt", 5, "This is B3 file");
-    createFile("DirA/B4.txt", 5, "hello Teacher");
-    createFile("DirA/B5.txt", 5, "hello Teacher");
+    sleep(2);
+    createFile("DirB/B1.txt", 5, "hello Teacher XD");
+    createFile("DirB/B2.txt", 5, "hello Teacher XD");
+    createFile("DirB/B3.txt", 5, "This is B3 file");
+    createFile("DirB/B4.txt", 5, "hello Teacher");
+    createFile("DirB/B5.txt", 5, "hello Teacher");
+    sleep(1);
     cout <<" DIRECTORIES AND FILES WAS CREATED SUCCESFULLY\n"<<endl;
 }
 void file::option2(){
@@ -82,5 +84,88 @@ void file::option2(){
     cout << "DONE!\n"<< endl;
     cout << "========================================\n"<< endl;
 }
+void file::option3(){
+    cout << "\n========================================" << endl;
+    cout << "" << endl;
+    cout << "Concatenating DirA/A2.txt with DirB/B1.txt" << endl;
+    system("cat <DirA/A2.txt DirB/B1.txt >> DirA/A2.txt");
+    //system("cat < ~/DirA/A2.txt >> ~/DirB/B1.txt");
+    cout << "DONE!\n"
+         << endl;
+    cout << "========================================\n"
+         << endl;
+}
+void file::option4(){
+    cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("sudo chown -R root DirA/");
+    cout << "OWNER OF THE ARCHIVES OF THE DirA CHANGED TO ROOT!\n"<< endl;
+    cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option5(){
+    cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("chmod -R 774 DirB"); //permisos de lectura, escritura y ejecucion para Usuario y Grupo, solo lectura para Otros
+    cout << "READING PERMITS CHANGED TO THE DirB, WRITING AND EXECUTION ARCHIVES FOR USER AND GROUP, READING ONLY FOR OTHERS!\n"
+         << endl;
+    cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option6(){
+    cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("sudo chgrp -R root DirB");
+    cout << "GROUP OF THE ARCHIVES OF DirB CHANGED TO ROOT!\n"<< endl;
+    cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option7(){
+    cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("grep --ignore-case --only-matching --no-filename 'b' DirA/A2.txt > conteo.txt");
+    cout << "THE TIMES THAT THE LETTER 'B' IS REPEATED IN THE FILE A2.txt OF DirA S:\n"<< countLines("conteo.txt") << endl;
+    system("rm conteo.txt");
+	cout << "HECHO!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option8(){
 
+	cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("ln DirB/B3.txt DirA/B3-enlace.txt");
+	cout << "LINK TO B3.txt CREATED IN DirA SUCCESFULLY" << endl;
+	cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option9(){
+    cout << "\n========================================" << endl;
+    cout << "Compare the files of the DirA and DirB directories" << endl;
+    cout << "The oldest file in the DirA directory";
+    system("find DirA -ls -mtime +1 | head -2");cout<<endl;
+    cout << "The most current file in the DirB directory" << endl;
+    system("find DirB -ls -mtime -1 | head -2");
+	sleep(2);
+	
+	cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
+void file::option10(){
+   char in;
+	cout << "\n========================================" << endl;
+	cout << "" << endl;
+	system("gpg -c DirA/A4.txt");
+	system("rm DirA/A4.txt");
+	remove("DirA/A4.txt");
+    cout << "'DirA/A4.txt' ENCRYPTED CORRECTLY, DO YOU WANT TO DECRYPT IT NOW? (Y / n)" << endl;
+    cin >> in;
+	if(in == 'y')
+	{
+		system("gpg DirA/A4.txt.gpg");
+        cout << "Decrypted FILE SUCCESSFULLY!!" << endl;
+        remove("DirA/A4.txt.gpg");
+	}
+	cout << "DONE!\n" << endl;
+	cout << "========================================\n" << endl;
+}
 #endif
