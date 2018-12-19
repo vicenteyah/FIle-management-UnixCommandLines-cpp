@@ -17,8 +17,8 @@ class file{
    void option8();
    void option9();
    void option10();
-   void createFile(string file, int times , string content);
-   int countLines();
+   void createFile(string, int, string);
+   int countLines(string);
    int menu();
 };
 int file::menu(){
@@ -39,4 +39,48 @@ int file::menu(){
     cin>>input;
     return input;
 }
+void file::createFile(string file,int times, string content){
+    ofstream txt(file.c_str());
+    string command;
+    txt << content << endl;
+    for(int i = 0; i < times ;i++)
+    { system(("cat" + file + " " + file + ">> temp.txt && mv temp.txt " + file).c_str());}
+}
+int file::countLines(string file){
+    ifstream txt(file.c_str());
+    string line;
+    int c = 0;
+    while (getline(txt, line)){
+        c++;
+    }
+    return c;
+}
+void file::option1(){
+    system("mkdir DirA");
+    system("mkdir DirB");
+    createFile("DirA/A1.txt",5,"hello");
+    createFile("DirA/A2.txt", 5, "A2 Baron Belcebu");
+    createFile("DirA/A3.txt", 5, "hello --");
+    createFile("DirA/A4.txt", 5, "hello --.");
+    createFile("DirA/A5.txt", 5, "hello --*");
+
+    createFile("DirA/B1.txt", 5, "hello Teacher XD");
+    createFile("DirA/B2.txt", 5, "hello Teacher XD");
+    createFile("DirA/B3.txt", 5, "This is B3 file");
+    createFile("DirA/B4.txt", 5, "hello Teacher");
+    createFile("DirA/B5.txt", 5, "hello Teacher");
+    cout <<" DIRECTORIES AND FILES WAS CREATED SUCCESFULLY\n"<<endl;
+}
+void file::option2(){
+    cout << "\n========================================" << endl;
+    cout << "" << endl;
+    cout << "files greater than 100kb in DirB:" << endl;
+    system("find DirB -size +100k");
+    cout << endl;
+    cout << "\nfiles less than 100kb in DirA:" << endl;
+    system("find DirB -size -100k");
+    cout << "DONE!\n"<< endl;
+    cout << "========================================\n"<< endl;
+}
+
 #endif
