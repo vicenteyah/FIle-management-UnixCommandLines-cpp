@@ -19,6 +19,7 @@ class file{
    void option9();
    void option10();
    void createFile(string, int, string);
+   void select(int select);
    int countLines(string);
    int menu();
 };
@@ -167,5 +168,21 @@ void file::option10(){
 	}
 	cout << "DONE!\n" << endl;
 	cout << "========================================\n" << endl;
+}
+void file::select(int select){
+  
+  switch (select)
+    {
+        case 1: option1(); break;
+        case 2: option2(); break;
+        case 3: option3(); break;
+        case 4: option4(); break;
+        case 5: option5(); break;
+        case 6: option6(); break;
+        case 7: option7(); break;
+        case 8: option8(); break;
+        case 9: option9(); break;
+        case 10:option10(); break;
+    }
 }
 #endif
