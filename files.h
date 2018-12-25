@@ -60,18 +60,13 @@ int file::countLines(string file){
 void file::option1(){
     system("mkdir DirA");
     system("mkdir DirB");
-    createFile("DirA/A1.txt",5,"hello");
-    createFile("DirA/A2.txt", 5, "A2 Baron Belcebu");
-    createFile("DirA/A3.txt", 5, "hello --");
-    createFile("DirA/A4.txt", 5, "hello --.");
-    createFile("DirA/A5.txt", 5, "hello --*");
-    sleep(2);
-    createFile("DirB/B1.txt", 5, "hello Teacher XD");
-    createFile("DirB/B2.txt", 5, "hello Teacher XD");
-    createFile("DirB/B3.txt", 5, "This is B3 file");
-    createFile("DirB/B4.txt", 5, "hello Teacher");
-    createFile("DirB/B5.txt", 5, "hello Teacher");
-    sleep(1);
+    string dir[10] = {"DirA/A1.txt", "DirA/A2.txt", "DirA/A3.txt", "DirA/A4.txt", "DirA/A5.txt",
+                      "DirB/B1.txt", "DirB/B2.txt", "DirB/B3.txt", "DirB/B4.txt", "DirB/B5.txt"};
+    string message[10]={"hello","A2 Baron Belcebu","hello :v","hi >:v"," a*1+b*3","hello teacher",
+                        "B2 file text","this is B3 file","playground","all hope is gone"};
+    for(int i = 0;i<10;i++){
+        createFile(dir[i],10,message[i]);
+    }
     cout <<" DIRECTORIES AND FILES WAS CREATED SUCCESFULLY\n"<<endl;
 }
 void file::option2(){
